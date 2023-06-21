@@ -9,6 +9,8 @@ function NewProject() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [attachment, setattachment] = useState("");
+  const [add, setAdd] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [file, setfile] = useState("");
   const [formData, setFormData] = useState({
     projectName: "",
@@ -53,7 +55,7 @@ function NewProject() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setAdd(true)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -76,7 +78,9 @@ function NewProject() {
     fetch("/addproject", requestOptions)
       .then((response) => response.text())
       .then((result) => {
+        setAdd(false)
         if (result === "Item added successfully") {
+          
           setFormData({
             projectName: "",
             clientName: "",
@@ -95,7 +99,7 @@ function NewProject() {
 
   const handleEdit = async (event) => {
     event.preventDefault();
-  
+    setEdit(true)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
   
@@ -118,7 +122,7 @@ function NewProject() {
     fetch(`/editproject/${searchParams.get("q")}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-       
+        setEdit(false)
         if (result === "Item updated successfully") {
           console.log(result, "resulttttt");
           alert('Item updated successfully');
@@ -353,7 +357,7 @@ function NewProject() {
                       type="submit"
                       className="flex items-center justify-center px-4 py-2 bg-blue-200 text-blue-800 rounded-md hover:bg-blue-300 focus:outline-none focus:bg-blue-300"
                     >
-                      {searchParams.get("q") ? "Update" : "Save"}
+                      {searchParams.get("q") ? `${ edit ? 'loading...' : 'Update'  }` : `${ add ? 'loading...' : 'Save'  }`}
                     </button>
                   </div>
                 </form>
