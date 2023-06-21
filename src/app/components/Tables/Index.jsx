@@ -179,13 +179,13 @@ const handleDelete = async (data) => {
                                     : "text-pink-500"
                                 }`}
                               >
-                                {item?.projectStatus}
+                                {item?.projectStatus?.charAt(0)?.toUpperCase() + item?.projectStatus?.slice(1)}
                               </h2>
                             </div>
                           </td>
 
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                            {item?.gender}
+                          {item?.gender?.charAt(0)?.toUpperCase() + item?.gender?.slice(1)}
                           </td>
 
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">

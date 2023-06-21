@@ -7,12 +7,9 @@ import { useRouter } from "next/navigation";
 
 function NewProject() {
   const router = useRouter();
-
   const searchParams = useSearchParams();
-
   const [attachment, setattachment] = useState("");
   const [file, setfile] = useState("");
-
   const [formData, setFormData] = useState({
     projectName: "",
     clientName: "",
@@ -52,6 +49,7 @@ function NewProject() {
       setattachment(file_reader?.result?.split(",")[1]);
     };
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -97,10 +95,10 @@ function NewProject() {
 
   const handleEdit = async (event) => {
     event.preventDefault();
-
+  
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+  
     var raw = JSON.stringify({
       id: formData?.projectId,
       projectName: formData?.projectName,
@@ -109,19 +107,22 @@ function NewProject() {
       ClientImage: `${attachment}`,
       projectStatus: formData?.projectStatus[0],
     });
-
+  
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: raw,
       redirect: "follow",
     };
-
+  
     fetch(`/editproject/${searchParams.get("q")}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(result, "resulttttt");
-        if (result === "Item added successfully") {
+       
+        if (result === "Item updated successfully") {
+          console.log(result, "resulttttt");
+          alert('Item updated successfully');
+          router.push("/");
           setFormData({
             projectName: "",
             clientName: "",
@@ -130,11 +131,11 @@ function NewProject() {
             projectId: 0,
             clientImage: null,
           });
-          router.push("/");
         }
       })
       .catch((error) => console.log("error", error));
   };
+  
 
   return (
     <>
@@ -185,7 +186,7 @@ function NewProject() {
                         id="username"
                         type="text"
                         name="projectName"
-                        value={formData.projectName}
+                        value={formData?.projectName}
                         onChange={handleChange}
                         className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                       />
