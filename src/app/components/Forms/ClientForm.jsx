@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillBackward } from "react-icons/ai";
 
-function ClientForm({ handleSubmit, handleChange, formData, convertToBase64, isEdit,handleEdit, isSubmitting, Add, Router , Edit, searchParams, Added }) {
+function ClientForm({ handleSubmit, handleChange, formData, convertToBase64,handleEdit, Add, Router , Edit, searchParams }) {
   return (
     <div className="flex justify-center items-center ">
       <div className="">
@@ -62,7 +62,6 @@ function ClientForm({ handleSubmit, handleChange, formData, convertToBase64, isE
                 <div className="flex justify-end mt-6">
                   <button type="submit" className="flex items-center justify-center px-4 py-2 bg-blue-200 text-blue-800 
                   rounded-md hover:bg-blue-300 focus:outline-none focus:bg-blue-300">
-                    {/* {`${Add ? 'loading...' : 'Save'}`} */}
                     {searchParams.get("q") ? `${ Edit ? 'loading...' : 'Update'  }` : `${ Add ? 'loading...' : 'Save'  }`}
 
                   </button>

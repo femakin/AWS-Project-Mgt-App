@@ -1,9 +1,7 @@
 "use client";
-
 import { RiAddLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
-
-import TableComponent from "../TableComponent";
+import TableComponent from "./TableComponent";
 
 function Table({ data }) {
   const router = useRouter();
@@ -11,40 +9,29 @@ function Table({ data }) {
     e.preventDefault();
     router.push("/newclient");
   };
+  const handleDelete = async (data) => {
+    try {
+      const requestOptions = {
+        method: "DELETE",
+        redirect: "follow",
+      };
 
+      const deleteProjectPromise = fetch(
+        `/deleteproject/${data?.id}`,
+        requestOptions
+      );
+      const deleteClientPromise = fetch(
+        `/deleteclient/${data?.client_id}`,
+        requestOptions
+      );
 
-const handleDelete = async (data) => {
-  console.log(data, 'data')
-    // var requestOptions = {
-    //     method: 'DELETE',
-    //     redirect: 'follow'
-    //   };
+      await Promise.all([deleteProjectPromise, deleteClientPromise]);
 
-    // fetch(`/deleteproject/${data}`, requestOptions)
-    // .then((response) => response.text())
-    // .then((result) => {
-    //    window.location.reload();
-    // })
-    // .catch((error) => console.log("error", error));
-
-  try {
-    const requestOptions = {
-      method: 'DELETE',
-      redirect: 'follow',
-    };
-
-    const deleteProjectPromise = fetch(`/deleteproject/${data?.id}`, requestOptions);
-    const deleteClientPromise = fetch(`/deleteclient/${data?.client_id}`, requestOptions);
-
-    await Promise.all([deleteProjectPromise, deleteClientPromise]);
-
-    window.location.reload();
-  } catch (error) {
-    console.log("error", error);
-  }
-}
-
-
+      window.location.reload();
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   return (
     <div>
@@ -63,7 +50,8 @@ const handleDelete = async (data) => {
           <div>
             <button
               onClick={handleClick}
-              className="flex items-center justify-center px-4 py-2 bg-blue-200 text-blue-800 rounded-md hover:bg-blue-300 focus:outline-none focus:bg-blue-300"
+              className="flex items-center justify-center px-4 py-2 bg-blue-200 text-blue-800 
+              rounded-md hover:bg-blue-300 focus:outline-none focus:bg-blue-300"
             >
               <RiAddLine className="mr-2" />
               New Project
@@ -71,7 +59,7 @@ const handleDelete = async (data) => {
           </div>
         </div>
 
-    <TableComponent handleDelete={handleDelete} data={data}  />
+        <TableComponent handleDelete={handleDelete} data={data} />
       </section>
     </div>
   );

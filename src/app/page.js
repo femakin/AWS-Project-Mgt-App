@@ -8,8 +8,7 @@ export default function page() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.clear()
-
+    localStorage.clear();
 
     const fetchData = async () => {
       try {
@@ -23,7 +22,7 @@ export default function page() {
 
         const combinedData = data1.map((item1, index) => {
           const item2 = data2[index];
-  
+
           return {
             projectName: item1?.projectName,
             projectStatus: item1?.projectStatus,
@@ -34,9 +33,6 @@ export default function page() {
             client_id: item2?.id,
           };
         });
-
-        console.log(combinedData, "combinedData");
-
         setData(combinedData);
 
         setLoading(false);
