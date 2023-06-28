@@ -1,10 +1,4 @@
-export const handleProjectSubmit = async ({
-  event,
-  formData,
-  setFormData,
-  setAdd,
-  router,
-  setEdit
+export const handleProjectSubmit = async ({ event,formData, setFormData, setAdd,router,
 }) => {
   event.preventDefault();
   setAdd(true);
@@ -16,11 +10,7 @@ export const handleProjectSubmit = async ({
     projectName: formData?.projectName,
     projectStatus: formData?.projectStatus[0],
   });
-  var requestOptions = {
-    method: "PUT",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
+  var requestOptions = {method: "PUT", headers: myHeaders,body: raw, redirect: "follow",
   };
 
   fetch("/additem", requestOptions)
@@ -36,11 +26,7 @@ export const handleProjectSubmit = async ({
     .catch((error) => console.log("error", error));
 };
 
-export const handleProjectEdit = async ({ event,
-    formData,
-    setFormData,
-    setAdd,
-    router, setEdit}) => {
+export const handleProjectEdit = async ({ event,formData, setFormData, router, setEdit}) => {
   event.preventDefault();
   setEdit(true);
   var myHeaders = new Headers();
@@ -52,11 +38,7 @@ export const handleProjectEdit = async ({ event,
     projectStatus: formData?.projectStatus[0],
   });
 
-  var requestOptions = {
-    method: "PUT",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
+  var requestOptions = { method: "PUT", headers: myHeaders, body: raw, redirect: "follow",
   };
 
   fetch(`/editproject`, requestOptions)
